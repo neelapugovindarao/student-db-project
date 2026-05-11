@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Fee Entry</title>
+
+    <script>
+        function calculateBalance() {
+            let total = document.getElementById("total").value;
+            let paid = document.getElementById("paid").value;
+
+            total = total ? parseFloat(total) : 0;
+            paid = paid ? parseFloat(paid) : 0;
+
+            let balance = total - paid;
+
+            document.getElementById("balance").value = balance;
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+        .container {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background: green;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Student Fee Form</h2>
+
+    <form method="POST">
+        <!-- Django CSRF -->
+        {% csrf_token %}
+
+        <label>Roll Number</label>
+        <input type="text" name="roll">
+
+        <label>Name</label>
+        <input type="text" name="name">
+
+        <label>Class</label>
+        <input type="text" name="student_class">
+
+        <label>Total Fees</label>
+        <input type="number" id="total" name="total" oninput="calculateBalance()">
+
+        <label>Paid</label>
+        <input type="number" id="paid" name="paid" oninput="calculateBalance()">
+
+        <label>Balance</label>
+        <input type="number" id="balance" name="balance" readonly>
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+</body>
+</html>
